@@ -2,10 +2,10 @@
 <div class="col-lg-12">
 	<div class="card card-outline card-success">
 		<div class="card-header">
-		<!--	<div class="card-tools">
+		<div class="card-tools">
 				<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" id="new_productivity"><i class="fa fa-plus"></i> New Productivity</button>
 			</div>
-			-->
+		
 		</div>
 		<div class="card-body">
 			<table class="table tabe-hover table-condensed" id="list">

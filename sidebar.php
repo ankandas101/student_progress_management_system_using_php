@@ -105,7 +105,7 @@
                 </a>
               </li>
               <li class="nav-item">
-              <a href="./index.php?page=final_marksheet" class="nav-link nav-final_marksheet nav-reports">
+              <a href="./final_marksheet.php" class="nav-link nav-final_marksheet nav-reports">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>View Marksheet</p>
                 </a>

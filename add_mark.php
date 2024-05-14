@@ -1,144 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+
 <?php 
-include 'db_connect.php';
-include 'header.php';
-// Fetch projects from project_list table
-    $where = "";
-    if($_SESSION['login_type'] == 2){
-      $where = " where manager_id = '{$_SESSION['login_id']}' ";
-    }elseif($_SESSION['login_type'] == 1){
-      $where = " ";
-    }else{
-            $URL="index.php";
-            echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL .'">';
-    }
-
-$sql_projects = "SELECT id, name, user_ids FROM project_list $where ";
-$result_projects = $conn->query($sql_projects);
-
+   include 'db_connect.php';
+   include 'header.php';
+   // Fetch projects from project_list table
+   $where = "";
+   $course_type ='';
+   if($_SESSION['login_type'] == 2){
+     $where = " where manager_id = '{$_SESSION['login_id']}' ";
+   }elseif($_SESSION['login_type'] == 1){
+     $where = "";
+   }else{
+           $URL="index.php";
+           echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL .'">';
+   }
+   $sql_projects = "SELECT id, name, user_ids FROM project_list  $where "; //where manager_id = 2
+   $result_projects = $conn->query($sql_projects);
 
 // Fetch students for selected project
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['project_id'])) {
     $project_id = $_POST['project_id'];
 
-    // Fetch students sorted by s_id in ascending order
-    $sql_students = "SELECT id, CONCAT(firstname, ' ', lastname) as student_name, s_id 
-                     FROM students 
-                     WHERE FIND_IN_SET(id, (SELECT user_ids FROM project_list WHERE id = $project_id))
-                     ORDER BY s_id ASC";
-    $result_students = $conn->query($sql_students);
+    $sql = "SELECT id,s_id, firstname, lastname FROM students 
+    WHERE FIND_IN_SET(id, (SELECT user_ids FROM project_list WHERE id = $project_id))
+    ORDER BY s_id ASC";
+    $result = $conn->query($sql);
 
-    // Fetch previous marks for selected project
-    $sql_previous_marks = "SELECT student_id, mark FROM marks WHERE project_id = $project_id";
-    $result_previous_marks = $conn->query($sql_previous_marks);
-    $previous_marks = array();
-    while ($row = $result_previous_marks->fetch_assoc()) {
-        $previous_marks[$row['student_id']] = $row['mark'];
-    }
-
+    $sql_course_type= "SELECT c.type 
+                         FROM project_list pl 
+                         JOIN course c ON pl.course_ids = c.id 
+                         WHERE pl.id = $project_id";
+    $result_course_type = $conn->query($sql_course_type);
+    $row_course_type= $result_course_type->fetch_assoc();
+    $course_type = $row_course_type['type'];
 }
-?>
+ ?>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Mark</title>
-    <style>
-        .card{
-            width: 90%;
-        }
-        .marks-form{
-            width: 90%;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .mt-btn{
-            font-size: 18px;
-        }
-        .cancel-btn {
-            color: white;
-            background-color: red;
-            margin-right: 30px;
-        }
-        .submit-btn:hover{
-        background-color: red;
-        }
-        .select-team {
-            word-wrap: normal;
-            padding-left: 5px;
-            padding-right: 10px;
-            width: 30%;
-            height: 40px;
-    }
-    
-    .team-selection{
-        display: block;
-    }
-    </style>
-</head>
-<body>
-
-<div class="card card-outline card-success">
-<div class="card-header">
     <div class="team-selection" >
         <form method="post" action="">
             
             <select name="project_id" class="select-team">
             <option value="" class="control-label" selected disabled>Select Team</option>
-                <?php while($row = $result_projects->fetch_assoc()) { ?>
+            <?php while($row = $result_projects->fetch_assoc()) { ?>
                     <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                 <?php } ?>
             </select>
             <input type="submit" class="btn btn-flat  bg-gradient-primary" value="Show Students">
         </form>
     </div>
-<?php if(isset($result_students)) { ?>
+
+    <?php if(isset($result)) { ?>
 
     <div  class="marks-form">
-    <form method="post" action="confirm_marks.php">
-        <table>
-            <tr>
-                <th>Student Full Name</th>
-                <th>Student ID</th>
-                <th>Previous Marks</th>
-                <th>New Mark</th>
-            </tr>
-            <br>
-            
-            <!-- Title:
-            <input type="text" name="notes" required value="<?php echo isset($notes) ? $notes : '' ?>">  
-            -->
-              <?php while($row = $result_students->fetch_assoc()) { ?>
-                <tr>
-                    <td><?php echo $row['student_name']; ?></td>
-                    <td><?php echo $row['s_id']; ?></td>
-                    <td><?php echo isset($previous_marks[$row['id']]) ? $previous_marks[$row['id']] : '-'; ?></td>
-                    <td><input type="number" name="marks[<?php echo $row['id']; ?>]" min="-100" max="100" required></td>
-                </tr>
-            <?php } ?>
-        </table>
-        <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-    
-        <button class="my-btn btn cancel-btn" onclick="window.location.href='index.php?page=add_mark' ">Cancel</button>
-            
-        <input type="submit" class="my-btn btn bg-gradient-primary submit-btn" value="Submit Marks">
+        <form action="add_exam.php" method="post">
+            <div class="form-group">
+                <label for="exam_title">Exam Title:</label>
+					<select id="exam_title" name="exam_title">
+					
+					<?php if($course_type ==1): ?> <!-- if THeory -->
+						<option value="mid">MID</option> 
+						<option value="ct_1">CT 1</option>
+						<option value="ct_2">CT 2</option>
+						<option value="ct_3">CT 3</option>
+						<option value="ct_4">CT 4</option>
+						
+						 <?php elseif($course_type ==2): ?> <!-- if lab -->
+						<option value="lab_1">Lab 1</option>
+						<option value="lab_2">lab 2</option>
+						<option value="lab_3">lab 3</option>
+						<option value="lab_4">lab 4</option>
+                        <option value="lab_5">lab 5</option>
+                        <option value="lab_6">lab 6</option>
+					<?php endif; ?>
+						<!-- Add other exam names here -->
+					</select><br><br>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Students List</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Display students in table
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['s_id'] . "</td>";
+                                    echo "<td>" . $row['firstname'] . " " . $row['lastname'] . "</td>";
+                                    echo "<td><input type='number' name='student_marks[" . $row['id'] . "]' class='form-control' required></td>";
+                                    echo "</tr>";
+                                }
+                            }
 
-    </form>
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
     </div>
-<?php } ?>
+    <button class="my-btn btn cancel-btn" onclick="window.location.href='index.php?page=add_mark' ">Cancel</button>
+    <?php } ?>
+
 </div>
-</div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

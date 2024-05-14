@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2024 at 04:13 PM
+-- Generation Time: May 13, 2024 at 11:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,9 @@ INSERT INTO `class` (`id`, `year`, `semester`, `sec`, `dept`, `student_ids`) VAL
 (13, '2024', 'Fall', 'A', 3, NULL),
 (14, '2022', 'Spring', 'B', 1, NULL),
 (15, '2022', 'Spring', 'D', 1, NULL),
-(16, '2022', 'Fall', 'A', 1, NULL);
+(16, '2022', 'Fall', 'A', 1, NULL),
+(17, '2019', 'Spring', 'A', 1, '90'),
+(18, '2017', 'Spring', 'A', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,66 @@ INSERT INTO `course` (`id`, `course_code`, `course_title`, `course_credits`, `de
 (9, 'CSE-2202', 'Numerical Analysis Laboratory ', 1.5, 1, 0, 3, 2),
 (10, 'CSE-3108', 'Internet Programming Laboratory', 0.75, 1, 10, 3, 2),
 (11, 'CSE-2200', 'Software Engerning Lab- I', 1.75, 1, 12, 2, 1),
-(13, ' CSE-3105', ' Theory of Computation', 3, 1, 10, 0, 1);
+(13, ' CSE-3105', ' Theory of Computation', 3, 1, 10, 0, 1),
+(14, 'HUM-3141', 'Engineering Echonmics and Accounting', 3, 2, 18, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam_marks`
+--
+
+CREATE TABLE `exam_marks` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `project_id` int(11) NOT NULL,
+  `exam_title` varchar(100) DEFAULT NULL,
+  `marks` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `exam_marks`
+--
+
+INSERT INTO `exam_marks` (`id`, `student_id`, `project_id`, `exam_title`, `marks`) VALUES
+(112, 8, 8, 'lab_1', 1),
+(113, 6, 8, 'lab_1', 1),
+(114, 44, 8, 'lab_1', 1),
+(115, 42, 8, 'lab_1', 1),
+(116, 58, 8, 'lab_1', 1),
+(117, 9, 8, 'lab_1', 1),
+(118, 43, 8, 'lab_1', 1),
+(119, 7, 8, 'lab_1', 1),
+(120, 15, 8, 'lab_1', 1),
+(121, 8, 9, 'mid', 15),
+(122, 6, 9, 'mid', 17),
+(123, 9, 9, 'mid', 18),
+(124, 8, 8, 'lab_3', 4),
+(125, 6, 8, 'lab_3', 1),
+(126, 44, 8, 'lab_3', 5),
+(127, 42, 8, 'lab_3', 4),
+(128, 58, 8, 'lab_3', 2),
+(129, 9, 8, 'lab_3', 3),
+(130, 43, 8, 'lab_3', 6),
+(131, 7, 8, 'lab_3', 5),
+(132, 15, 8, 'lab_3', 4),
+(133, 8, 9, 'ct_4', 5),
+(134, 6, 9, 'ct_4', 5),
+(135, 9, 9, 'ct_4', 6),
+(136, 8, 10, 'ct_1', 5),
+(137, 6, 10, 'ct_1', 4),
+(138, 42, 10, 'ct_1', 12),
+(139, 9, 10, 'ct_1', 4),
+(140, 85, 10, 'ct_1', 5),
+(141, 43, 10, 'ct_1', 6),
+(142, 15, 10, 'ct_1', 8),
+(143, 8, 10, 'ct_2', 9),
+(144, 6, 10, 'ct_2', 8),
+(145, 42, 10, 'ct_2', 4),
+(146, 9, 10, 'ct_2', 5),
+(147, 85, 10, 'ct_2', 6),
+(148, 43, 10, 'ct_2', 7),
+(149, 15, 10, 'ct_2', 4);
 
 -- --------------------------------------------------------
 
@@ -137,7 +198,8 @@ INSERT INTO `instructors` (`id`, `firstname`, `lastname`, `user_id`, `avatar`, `
 (3, 'A. K. Z Rasel', 'Rahman', 10012, '1712862600_A. K. Z Rasel Rahman.jpg', '1', '4', 'arr@ins', '3431fd2bbc2f29308ef515bce75d713b', 2, '2024-04-11 19:10:40'),
 (4, 'Md. Shymon', 'Islam', 10009, '1712946300_Md. Shymon Islam.jpg', '1', '4', 'msi@ins', '70e8c4946fea8e67f59fbe5e82bc17fd', 2, '2024-04-12 18:25:43'),
 (5, 'Sagar', 'Kundu', 20014, '1712947140_Sagar Kundu.jpg', '3', '4', 'sku@ins', 'f91909b1ebf048b9693a4c449bdf42dc', 2, '2024-04-12 18:39:58'),
-(6, 'Tajul', 'Islam', 10003, '', '1', '2', 'tji@ins', 'e2c0a3937094a86f3e34debc80d98d56', 2, '2024-04-20 16:07:08');
+(6, 'Tajul', 'Islam', 10003, '', '1', '2', 'tji@ins', 'e2c0a3937094a86f3e34debc80d98d56', 2, '2024-04-20 16:07:08'),
+(7, 'Md. Mahedi', 'Hasan', 1005, '1714189440_Md. Mahedi Hasan.jpg', '1', '3', 'mah@ins', 'b3d1e799bb45dba5bd8d3f4b508be590', 2, '2024-04-27 03:44:56');
 
 -- --------------------------------------------------------
 
@@ -149,7 +211,7 @@ CREATE TABLE `marks` (
   `id` int(11) NOT NULL,
   `student_id` text NOT NULL,
   `project_id` int(11) NOT NULL,
-  `notes` text NOT NULL,
+  `exam_title` text NOT NULL,
   `mark` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -157,17 +219,17 @@ CREATE TABLE `marks` (
 -- Dumping data for table `marks`
 --
 
-INSERT INTO `marks` (`id`, `student_id`, `project_id`, `notes`, `mark`) VALUES
-(21, '8', 8, '', 40),
-(22, '6', 8, '', 50),
-(23, '44', 8, '', 55),
-(24, '42', 8, '', 60),
-(25, '58', 8, '', 65),
+INSERT INTO `marks` (`id`, `student_id`, `project_id`, `exam_title`, `mark`) VALUES
+(21, '8', 8, '', 45),
+(22, '6', 8, '', 55),
+(23, '44', 8, '', 60),
+(24, '42', 8, '', 65),
+(25, '58', 8, '', 70),
 (26, '14', 8, '', 65),
-(27, '9', 8, '', 75),
-(28, '43', 8, '', 80),
-(29, '7', 8, '', 85),
-(30, '15', 8, '', 90),
+(27, '9', 8, '', 80),
+(28, '43', 8, '', 85),
+(29, '7', 8, '', 90),
+(30, '15', 8, '', 95),
 (31, '8', 9, '', 6),
 (32, '6', 9, '', 6),
 (33, '9', 9, '', 6);
@@ -196,8 +258,9 @@ CREATE TABLE `project_list` (
 --
 
 INSERT INTO `project_list` (`id`, `name`, `description`, `status`, `start_date`, `end_date`, `manager_id`, `user_ids`, `course_ids`, `date_created`) VALUES
-(8, 'IP Lab - B', '												internet programing lab section two', 2, '2024-04-01', '2024-05-01', 3, '42,9,43,8,6,15,58,7,44,14', '10', '2024-04-12 15:21:46'),
-(9, 'NWU WhiteHats', 'it is a icpc team', 1, '2024-04-01', '2024-04-30', 2, '9,8,6', '8', '2024-04-14 16:42:55');
+(8, 'IP Lab - B', '																														internet programing lab section two															', 2, '2024-04-01', '2024-05-30', 3, '42,9,43,8,6,15,58,7,44', '10', '2024-04-12 15:21:46'),
+(9, 'NWU WhiteHats', 'it is a icpc team', 1, '2024-04-01', '2024-04-30', 2, '9,8,6', '8', '2024-04-14 16:42:55'),
+(10, 'Software Engineering LAB', '												Demo Team										', 5, '2024-05-01', '2024-06-01', 3, '42,9,43,8,85,6,15', '11', '2024-05-14 01:53:59');
 
 -- --------------------------------------------------------
 
@@ -228,7 +291,7 @@ INSERT INTO `students` (`id`, `firstname`, `lastname`, `email`, `password`, `typ
 (8, 'Faria Afrin', 'Labonno', 'labonno@student', 'a0b54ee33e8f726d90e0862e1f9edfd6', 3, '1709579160_labonno.PNG', '2024-03-05 01:06:59', 20221045010, 1),
 (9, 'Ankan', 'Das', 'ankan@std', '1602185733f4b41f2013709b5ed04c68', 3, '1709579940_1708858570905.jpg', '2024-03-05 01:19:36', 20221057010, 0),
 (15, 'Puza', 'Roy', 'puza@student', 'd0b1262176ff8079b39aecbaa355d74e', 3, '1709675460_1709578861891.jpg', '2024-03-06 03:51:33', 20221077010, 1),
-(42, 'Amrin Islam', 'Ripa', 'ripa@student', '9a538d7520c401da556b041f33416fc8', 3, '1710009300_1710009076612.jpg', '2024-03-10 00:35:40', 20221050010, 1),
+(42, 'Amrin Islam', 'Ripa', 'ripa@std', 'f780b8f6884095ddd5bc9d12ab9b3ff5', 3, '1710009300_1710009076612.jpg', '2024-03-10 00:35:40', 20221050010, 1),
 (43, 'Dalia Mim', 'Luna', 'mim@student', 'c73c27960985cb7846e8c85705569bc4', 3, '1710009900_1710009076604.jpg', '2024-03-10 00:45:05', 20221070010, 1),
 (44, 'Tanzil Pervez', 'Fardin', 'fardin@student', '57cc584fd2816dba4b49de987f4f3417', 3, '1710009960_1710009076596.png', '2024-03-10 00:46:59', 20221049010, 1),
 (58, 'Rakib', 'Md', 'rakib@student', '00af255798aa9121928ba75bf719af27', 3, '1712704260_nwu.png', '2024-04-10 05:11:11', 20221052010, 1),
@@ -236,8 +299,8 @@ INSERT INTO `students` (`id`, `firstname`, `lastname`, `email`, `password`, `typ
 (63, 'Touhidul', 'Sojib', 'sojib@std', '658555d83fb4f174097435aacbe45169', 3, '1713182220_1712945040_IMG_3455.jpg', '2024-04-15 17:57:19', 20221053010, 1),
 (85, 'Hasibul Hasan', 'Santo', 'santo@std', '4e8439a115131b5503ae3aac9a00e812', 3, 'no-image-available.png', '2024-04-16 00:38:19', 20221068010, 1),
 (86, 'Mohsina', 'Yasmin', 'mohsina@std', 'ce59f017dd7c9df57251c250b1ff4020', 3, 'no-image-available.png', '2024-04-16 01:14:21', 20221075010, 1),
-(87, 'Estiak', 'Ahmed', 'estiak@std', '13b3c4d18ea2e89a2cab815b26721cd5', 3, 'no-image-available.png', '2024-04-20 21:46:27', 20221046010, 1),
-(89, 'Md Rashedul', 'Islam', 'rashedul@std', '50cca6bdd3b2a70665983e71522e3c2b', 3, 'no-image-available.png', '2024-04-20 22:07:48', 20221061010, 1);
+(89, 'Md Rashedul', 'Islam', 'rashedul@std', '50cca6bdd3b2a70665983e71522e3c2b', 3, 'no-image-available.png', '2024-04-20 22:07:48', 20221061010, 1),
+(90, 'MD. Mehedee', 'Hasan', 'mehedee@std', 'af691c3be23108129caccff1d1af6c4b', 3, 'no-image-available.png', '2024-04-27 09:39:55', 20221048010, 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +345,8 @@ CREATE TABLE `task_list` (
 --
 
 INSERT INTO `task_list` (`id`, `project_id`, `task`, `description`, `status`, `t_marks`, `date_created`) VALUES
-(9, 8, 'login page should be added ', 'every one have to add login system in their project', 2, 5, '2024-04-20 22:18:32');
+(9, 8, 'login page should be added ', '				every one have to add login system in their project			', 3, 5, '2024-04-20 22:18:32'),
+(10, 10, 'Sign Up page should be added in font page', '				dome description			', 3, 10, '2024-05-14 02:00:36');
 
 -- --------------------------------------------------------
 
@@ -340,9 +404,10 @@ CREATE TABLE `user_productivity` (
 --
 
 INSERT INTO `user_productivity` (`id`, `project_id`, `task_id`, `comment`, `status`, `date`, `start_time`, `end_time`, `user_id`, `time_rendered`, `date_created`) VALUES
-(6, 3, 5, 'DONE', 0, '2024-03-05', '15:49:00', '12:50:00', 6, -2.98333, '2024-03-05 12:50:12'),
-(7, 3, 6, '&lt;b&gt;&lt;font color=&quot;#000000&quot; style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;ALL DONE&lt;/font&gt;&lt;/b&gt;', 3, '2024-03-09', '13:00:00', '14:00:00', 6, 1, '2024-03-09 11:43:18'),
-(8, 4, 8, '							Solved						', 3, '2024-03-09', '12:39:00', '13:39:00', 7, 1, '2024-03-09 12:40:09');
+(10, 8, 9, 'Login page&amp;nbsp; created .', 2, '2024-05-13', '00:22:00', '04:22:00', 6, 4, '2024-05-14 00:22:51'),
+(11, 8, 9, 'DONE', 3, '2024-05-14', '00:24:00', '02:24:00', 1, 2, '2024-05-14 00:24:12'),
+(14, 8, 9, 'INSTRATOR Test', 2, '2024-11-01', '01:36:00', '00:37:00', 3, -0.983333, '2024-05-14 00:36:33'),
+(15, 10, 10, 'Signup page added successfully ..', 3, '2024-05-14', '02:02:00', '03:02:00', 6, 1, '2024-05-14 02:03:11');
 
 --
 -- Indexes for dumped tables
@@ -367,6 +432,12 @@ ALTER TABLE `class`
 ALTER TABLE `course`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `course_code` (`course_code`) USING HASH;
+
+--
+-- Indexes for table `exam_marks`
+--
+ALTER TABLE `exam_marks`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `instructors`
@@ -427,19 +498,25 @@ ALTER TABLE `user_productivity`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `exam_marks`
+--
+ALTER TABLE `exam_marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `marks`
@@ -451,13 +528,13 @@ ALTER TABLE `marks`
 -- AUTO_INCREMENT for table `project_list`
 --
 ALTER TABLE `project_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `system_settings`
@@ -469,7 +546,7 @@ ALTER TABLE `system_settings`
 -- AUTO_INCREMENT for table `task_list`
 --
 ALTER TABLE `task_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -481,7 +558,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_productivity`
 --
 ALTER TABLE `user_productivity`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

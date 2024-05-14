@@ -106,7 +106,8 @@ $cls = $cls->num_rows > 0 ? $cls->fetch_array() : array();
 				<div class="card-header">
 					<span><b>Team Members:</b></span>
 					<div class="card-tools">
-					<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" id="new_mark"><i class="fa fa-plus"></i>Input Marks</button>					</div>
+					<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" id="new_mark"><i class="fa fa-plus"></i>Input Marks</button>
+					</div>
 				</div>
 				<div class="card-body">
 					<ul class="users-list clearfix">
@@ -118,7 +119,6 @@ $cls = $cls->num_rows > 0 ? $cls->fetch_array() : array();
 								<li>
 			                        <img src="assets/uploads/<?php echo $row['avatar'] ?>" alt="User Image">
 			                        <a class="users-list-name" href="javascript:void(0)"><?php echo ucwords($row['name']) ?></a>
-			                        <span class="users-list-date">Today</span>
 		                    	</li>
 						<?php 
 							endwhile;
@@ -220,7 +220,7 @@ $cls = $cls->num_rows > 0 ? $cls->fetch_array() : array();
 				</div>
 				<div class="card-body">
 					<?php 
-					$progress = $conn->query("SELECT p.*,concat(u.firstname,' ',u.lastname) as uname,u.avatar,t.task FROM user_productivity p inner join users u on u.id = p.user_id inner join task_list t on t.id = p.task_id where p.project_id = $id order by unix_timestamp(p.date_created) desc ");
+					$progress = $conn->query("SELECT p.*,concat(u.firstname,' ',u.lastname) as uname,u.avatar,t.task FROM user_productivity p inner join students u on u.id = p.user_id inner join task_list t on t.id = p.task_id where p.project_id = $id order by unix_timestamp(p.date_created) desc ");
 					while($row = $progress->fetch_assoc()):
 					?>
 						<div class="post">
@@ -258,10 +258,6 @@ $cls = $cls->num_rows > 0 ? $cls->fetch_array() : array();
 		                      <div>
 		                       <?php echo html_entity_decode($row['comment']) ?>
 		                      </div>
-
-		                      <p>
-		                        <!-- <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a> -->
-		                      </p>
 	                    </div>
 	                    <div class="post clearfix"></div>
                     <?php endwhile; ?>
