@@ -9,8 +9,9 @@ Welcome to our project about student management system using MySQL and PHP.
 5.Team Progress
 6.Marking through daily Progress
 7.Print Marksheet report
+
 # Instructions:
-1. Install any software to make your pc as local server. (Xampp Recommend)
+1. Install any software to make your pc as local server. (Xampp)
 2. Start Apache and MySQL.
 3. Past those file in to htdocs\(any folder)
 4. Database Configuration Open phpmyadmin
@@ -18,9 +19,9 @@ Welcome to our project about student management system using MySQL and PHP.
 6. import our given database (from the database folder)
 7. Now you are live in: http:// localhost/Folder Name
 ### Team Member:
- Pranto Mallick
- Faria Afrin labonno
- Ankan Das
+ *Pranto Mallick
+ *Faria Afrin labonno
+ *Ankan Das
 ### Team Instructor:
 
  A.K.Z Rasel Rahman
