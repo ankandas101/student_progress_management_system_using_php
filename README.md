@@ -27,5 +27,7 @@ Welcome to our project about student management system using MySQL and PHP.
  A.K.Z Rasel Rahman
  Lecturer,
  Dept. of CSE, NWU
-
+### Live Demo: 
+Visit link: http://iplab.a0001.net/  
+***We are using demo hosting service, so you may get dangerous Warning in your browser.just ignore it.
 #### Any further information please contact with me with this link: https://www.facebook.com/ankandas.fb  
